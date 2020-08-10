@@ -83,7 +83,6 @@ $('#add-marker-btn').click(function (){
 
     console.log(selectedCategory, selectedSubCategory)
 
-    lastMarker.setLabel('&#127795');
     lastMarker = undefined;
 
     // noinspection JSUnresolvedFunction
