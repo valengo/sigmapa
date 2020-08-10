@@ -12,5 +12,9 @@
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "pug": "2.0.0-beta11"
+  },
+  "devDependencies": {
+    "@types/googlemaps": "^3.39.11",
+    "jquery": "^3.5.1"
   }
 }

@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-/* GET users listing. */
+/* GET main map page. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+    res.render('main-map', { name: 'Mapa principal' });
 });
 
 module.exports = router;

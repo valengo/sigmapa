@@ -2,28 +2,21 @@ block content
     nav#sidebarMenu.col-md-3.col-lg-2.d-md-block.dark-blue.sidebar.collapse
         .sidebar-sticky.pt-3
             ul.nav.flex-column.mb-5
-                li.nav-item
-                    a.nav-link.active(href="#")
-                        span(data-feather="home")
-                        |               Início
-                        span.sr-only (current)
-                li.nav-item
-                    a.nav-link(href="#")
-                        span(data-feather="map")
-                        |               Mapa principal
+                -
+                    const items = {
+                        '/'                 : ['home', 'Início'],
+                        '/main-map'         : ['map', 'Mapa principal'],
+                        '/all-courses'      : ['grid', 'Todos os cursos'],
+                        '/my-maps'          : ['layers', 'Meus mapas'],
+                        '/notifications'    : ['bell', 'Notificações']};
 
-                li.nav-item
-                    a.nav-link(href="#")
-                        span(data-feather="grid")
-                        |               Todos os cursos
-                li.nav-item
-                    a.nav-link(href="#")
-                        span(data-feather="layers")
-                        |               Meus mapas
-                li.nav-item
-                    a.nav-link(href="#")
-                        span(data-feather="bell")
-                        |               Notificações
+                each val, key in items
+                    li.nav-item
+                        a.nav-link(href=key, class= name === val[1]  ? 'active' : '')
+                            span(data-feather=val[0])
+                            |   #{val[1]}
+                            if name === val[1]
+                                span.sr-only (current)
 
             ul.nav.flex-column.mb-2.mt-5
                 li.nav-item

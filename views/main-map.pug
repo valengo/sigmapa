@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    include navbar
+    .container-fluid
+        .row
+            include sidemenu
+            main.col-md-9.col-lg-10.col-sm-12(role="main")
+                #map
+
+    include add-marker-modal
+block resource
+    script(src="javascripts/main-map.js")
+    script(async, defer, src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCINrjsjWUnsX8jS0KeF3_1ekPrZNfwmWs&callback=initMap" type="text/javascript")
