@@ -13,9 +13,9 @@ block content
                                 .form-group
                                     label(for="category-selection") Selecione uma categoria
                                     select#category-selection.form-control
-                                        option &#127795 Meio ambiente
-                                        option &#127974 Urbanismo
-                                        option &#128106 População
+                                        option(value=1) &#127795 Meio ambiente
+                                        option(value=2) &#127974 Urbanismo
+                                        option(value=3) &#128106 População
                         .row
                             .col-12
                                 .form-group
@@ -26,9 +26,9 @@ block content
                                         option Presença de lixão
                                         option Poluição de rios
                                         option Imóveis abandonados, possíveis focos de doenças
-                                        option Sugestão de inclusäo de novos ecopontos
+                                        option Sugestão de inclusão de novos ecopontos
 
 
                 .modal-footer
-                    button.btn.btn-primary(type="button") Adicionar marcador
-                    button.btn.btn-secondary(type="button" data-dismiss="modal") Cancelar
+                    button#add-marker-btn.btn.btn-primary(type="button") Adicionar marcador
+                    button#cancel-add-marker-btn.btn.btn-secondary(type="button" data-dismiss="modal") Cancelar
