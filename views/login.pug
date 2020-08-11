@@ -1,0 +1,19 @@
+extends layout
+
+block head
+    link(type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css")
+
+block content
+    .jumbotron
+        .container.align-middle
+            .row
+                #firebaseui-auth-container.col-12
+
+block resource
+    script(src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js")
+    script(src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js")
+    script(src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js")
+    script(src="javascripts/firebase.js")
+
+
+
