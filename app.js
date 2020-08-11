@@ -16,6 +16,8 @@ if (env === envDevDescription) {
     require('dotenv-safe').config();
 }
 
+console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+
 firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert(process.env.GOOGLE_APPLICATION_CREDENTIALS),
     databaseURL: 'https://sigmapa-v2.firebaseio.com'
