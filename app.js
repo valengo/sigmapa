@@ -17,7 +17,11 @@ if (env === envDevDescription) {
     require('dotenv-safe').config();
 }
 console.log(process.env.DATABASE_URL)
-db.query('SELECT * FROM users');
+db.query('SELECT * FROM users', (err, res) => {
+    if (err) {
+        console.log('OOOOOPS DEU ERRO' + err);
+    }
+});
 
 firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert({
