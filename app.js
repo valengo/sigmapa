@@ -6,15 +6,18 @@ const logger = require('morgan');
 const firebaseAdmin = require('firebase-admin');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const mainMapRouter = require('./routes/main-map')
 const loginRouter = require('./routes/login')
+
+const db = require('./db')
 
 const envDevDescription = 'development'
 let env = process.env.NODE_ENV || envDevDescription
 if (env === envDevDescription) {
     require('dotenv-safe').config();
 }
+console.log(process.env.DATABASE_URL)
+db.query('SELECT * FROM users');
 
 firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert({
@@ -25,16 +28,28 @@ firebaseAdmin.initializeApp({
     databaseURL: 'https://sigmapa-v2.firebaseio.com'
 });
 
-function verifyIdToken(idToken) {
+function verifyIdToken(req, res, next) {
+    let idToken = req.headers['authorization'];
+    if (idToken === undefined) {
+        console.log('indefinido, se ferrou');
+        return res.redirect('/login');
+    }
+
     firebaseAdmin.auth().verifyIdToken(idToken).then(function (decodedToken) {
-        console.log(decodedToken);
+        console.log('User esta logado socuerro');
+        next();
     }).catch(function (error) {
-        console.log(error);
+        console.log('falso');
+        return res.redirect('/login');
     });
 }
 
 
 const app = express();
+
+app.use('/index', verifyIdToken, indexRouter);
+app.use('/main-map', verifyIdToken, mainMapRouter);
+app.use('/login', loginRouter);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,11 +61,10 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/main-map', mainMapRouter);
-app.use('/login', loginRouter);
-
+app.get('/', verifyIdToken, function (req, res, next) {
+    console.log('hello from /');
+    return res.redirect('/index');
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

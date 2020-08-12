@@ -16,7 +16,23 @@ firebase.initializeApp(firebaseConfig);
 let ui = new firebaseui.auth.AuthUI(firebase.auth());
 
 let uiConfig = {
-    signInSuccessUrl: '/',
+    callbacks: {
+        signInSuccessWithAuthResult(authResult, redirectUrl) {
+            firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
+                $.ajax({
+                    url: "/",
+                    type: 'GET',
+                    headers: {Authorization: idToken}
+                }).done(function (){
+                    console.log('done');
+                    window.location.replace('/index');
+                });
+            }).catch(function(error) {
+                console.log('Error trying to get user! ' + error);
+            });
+            return false;
+        }
+    },
     signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
