@@ -14,7 +14,7 @@ const client = process.env.NODE_ENV === 'production' ? new Client({
     port: process.env.PGPORT
 });
 
-main().then(r => console.log('Migration completed!'));
+main().then(r => console.log('Database was initialized!'));
 
 async function main() {
     await client.connect();

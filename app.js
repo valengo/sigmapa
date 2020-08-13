@@ -35,6 +35,7 @@ function verifyIdToken(req, res, next) {
 
     firebaseAdmin.auth().verifyIdToken(idToken).then(function (decodedToken) {
         console.log('User esta logado socuerro');
+        console.log(decodedToken);
         next();
     }).catch(function (error) {
         console.log('falso');
