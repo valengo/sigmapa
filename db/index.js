@@ -9,6 +9,18 @@ const client = new Client({
 
 client.connect();
 
+client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+    if (err) {
+        console.log(err);
+    }
+    else {
+        for (let row of res.rows) {
+            console.log(JSON.stringify(row));
+        }
+        client.end();
+    }
+});
+
 module.exports = {
     query: (text, params, callback) => {
         let query = client.query(text, params, callback)
