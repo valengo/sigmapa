@@ -9,13 +9,13 @@ const indexRouter = require('./routes/index');
 const mainMapRouter = require('./routes/main-map')
 const loginRouter = require('./routes/login')
 
-const db = require('./db')
-
 const envDevDescription = 'development'
 let env = process.env.NODE_ENV || envDevDescription
 if (env === envDevDescription) {
     require('dotenv-safe').config();
 }
+
+const db = require('./db')
 
 firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert({

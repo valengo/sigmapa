@@ -1,10 +1,16 @@
 const {Client} = require('pg');
 
-const client = new Client({
+const client = process.env.NODE_ENV === 'production' ? new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
     }
+}) : new Client({
+    user: process.env.PGUSER,
+    host: process.env.PGHOST,
+    database: process.env.PGDATABASE,
+    password: process.env.PGPASSWORD,
+    port: process.env.PGPORT
 });
 
 client.connect();
@@ -12,8 +18,7 @@ client.connect();
 client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
     if (err) {
         console.log(err);
-    }
-    else {
+    } else {
         for (let row of res.rows) {
             console.log(JSON.stringify(row));
         }
