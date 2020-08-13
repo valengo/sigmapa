@@ -1,3 +1,4 @@
+const {migrate} = require('postgres-migrations')
 const {Client} = require('pg');
 
 const client = process.env.NODE_ENV === 'production' ? new Client({
@@ -13,23 +14,24 @@ const client = process.env.NODE_ENV === 'production' ? new Client({
     port: process.env.PGPORT
 });
 
-client.connect();
+main().then(r => console.log('Migration completed!'));
 
-client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-    if (err) {
-        console.log(err);
-    } else {
-        for (let row of res.rows) {
-            console.log(JSON.stringify(row));
-        }
-        client.end();
+async function main() {
+    await client.connect();
+
+    try {
+        await migrate({client}, './db/migrations');
+    } catch (err) {
+        console.log('Migration error: ' + err);
+    } finally {
+        await client.end();
     }
-});
-
-module.exports = {
-    query: (text, params, callback) => {
-        let query = client.query(text, params, callback)
-        client.end();
-        return query;
-    },
 }
+
+// module.exports = {
+//     query: (text, params, callback) => {
+//         let query = client.query(text, params, callback)
+//         client.end();
+//         return query;
+//     },
+// }
