@@ -14,8 +14,6 @@ const client = process.env.NODE_ENV === 'production' ? new Client({
     port: process.env.PGPORT
 });
 
-main().then(r => console.log('Database was initialized!'));
-
 async function main() {
     await client.connect();
 
@@ -24,8 +22,13 @@ async function main() {
     } catch (err) {
         console.log('Migration error: ' + err);
     } finally {
-        await client.end();
+        // await client.end();
     }
+}
+
+module.exports = {
+    migrate: () => main(),
+    client: client
 }
 
 // module.exports = {

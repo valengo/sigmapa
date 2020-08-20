@@ -1,5 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
+const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session)
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -15,7 +17,16 @@ if (env === envDevDescription) {
     require('dotenv-safe').config();
 }
 
-const db = require('./db')
+const app = express();
+
+const db = require('./db');
+
+db.migrate().then(r => {
+        console.log('Database was initialized!');
+        configureApp();
+    }
+);
+
 
 firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert({
@@ -26,7 +37,7 @@ firebaseAdmin.initializeApp({
     databaseURL: 'https://sigmapa-v2.firebaseio.com'
 });
 
-function verifyIdToken(req, res, next) {
+function verifyFirebaseIdToken(req, res, next) {
     let idToken = req.headers['authorization'];
     if (idToken === undefined) {
         console.log('indefinido, se ferrou');
@@ -43,42 +54,55 @@ function verifyIdToken(req, res, next) {
     });
 }
 
+function configureApp() {
+    app.use(session({
+        store: new pgSession({
+            pool: db.client
+        }),
+        secret: 'shhh, top secret',
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            maxAge: 5 * 24 * 60 * 60 * 1000, // 5 days
+        }
 
-const app = express();
+    }));
 
-app.use('/index', verifyIdToken, indexRouter);
-app.use('/main-map', verifyIdToken, mainMapRouter);
-app.use('/login', loginRouter);
+    app.use('/index', verifyFirebaseIdToken, indexRouter);
+    app.use('/main-map', verifyFirebaseIdToken, mainMapRouter);
+    app.use('/login', loginRouter);
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+    // view engine setup
+    app.set('views', path.join(__dirname, 'views'));
+    app.set('view engine', 'pug');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+    app.use(logger('dev'));
+    app.use(express.json());
+    app.use(express.urlencoded({extended: false}));
+    app.use(cookieParser());
+    app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', verifyIdToken, function (req, res, next) {
-    console.log('hello from /');
-    return res.redirect('/index');
-});
+    app.get('/', verifyFirebaseIdToken, function (req, res, next) {
+        console.log('hello from /');
+        return res.redirect('/index');
+    });
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    next(createError(404));
-});
+    // catch 404 and forward to error handler
+    app.use(function (req, res, next) {
+        next(createError(404));
+    });
 
-// error handler
-app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // error handler
+    app.use(function (err, req, res, next) {
+        // set locals, only providing error in development
+        res.locals.message = err.message;
+        res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
-});
+        // render the error page
+        res.status(err.status || 500);
+        res.render('error');
+    });
+
+}
 
 module.exports = app;
