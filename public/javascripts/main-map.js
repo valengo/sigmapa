@@ -76,8 +76,6 @@ $(categorySelectId).change(function (){
  */
 
 $('#add-marker-btn').click(function (){
-    console.log('Add marker now!');
-
     let selectedCategory = $(categorySelectId).children("option:selected").val();
     let selectedSubCategory = $(subCategorySelectId).children("option:selected").val();
 
@@ -90,7 +88,6 @@ $('#add-marker-btn').click(function (){
 });
 
 $('#cancel-add-marker-btn').click(function (){
-    console.log('Cancel adding marker now!')
 });
 
 /**
