@@ -38,26 +38,36 @@ firebaseAdmin.initializeApp({
 });
 
 function verifyFirebaseIdToken(req, res, next) {
+    if (req.session.email) {
+        return next();
+    }
+
     let idToken = req.headers['authorization'];
     if (idToken === undefined) {
-        console.log('indefinido, se ferrou');
         return res.redirect('/login');
     }
 
     firebaseAdmin.auth().verifyIdToken(idToken).then(function (decodedToken) {
-        console.log('User esta logado socuerro');
-        console.log(decodedToken);
-        next();
+        req.session.email = decodedToken.email
+        return next();
     }).catch(function (error) {
-        console.log('falso');
+        console.log('Error = ' + error);
         return res.redirect('/login');
     });
+}
+
+function isAdminLoggedIn(req, res, next) {
+
+}
+
+function isUserLoggedIn(req, res, next) {
+
 }
 
 function configureApp() {
     app.use(session({
         store: new pgSession({
-            pool: db.client
+            pool: db.pool
         }),
         secret: 'shhh, top secret',
         resave: false,
@@ -83,7 +93,6 @@ function configureApp() {
     app.use(express.static(path.join(__dirname, 'public')));
 
     app.get('/', verifyFirebaseIdToken, function (req, res, next) {
-        console.log('hello from /');
         return res.redirect('/index');
     });
 

@@ -9,6 +9,8 @@ CREATE TABLE users (
     role_id char(1) NOT NULL,
     uid varchar NOT NULL,
     email varchar NOT NULL,
+    name varchar NOT NULL,
+
 
     PRIMARY KEY (user_id),
     CONSTRAINT fk_role

@@ -1,12 +1,12 @@
 const {migrate} = require('postgres-migrations')
-const {Client} = require('pg');
+const {Pool} = require('pg');
 
-const client = process.env.NODE_ENV === 'production' ? new Client({
+const pool = process.env.NODE_ENV === 'production' ? new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
     }
-}) : new Client({
+}) : new Pool({
     user: process.env.PGUSER,
     host: process.env.PGHOST,
     database: process.env.PGDATABASE,
@@ -15,26 +15,21 @@ const client = process.env.NODE_ENV === 'production' ? new Client({
 });
 
 async function main() {
-    await client.connect();
+    const client = await pool.connect();
 
     try {
         await migrate({client}, './db/migrations');
     } catch (err) {
         console.log('Migration error: ' + err);
     } finally {
-        // await client.end();
+        await client.release();
     }
 }
 
 module.exports = {
     migrate: () => main(),
-    client: client
+    pool: pool,
+    query: (text, params, callback) => {
+        return pool.query(text, params, callback)
+    }
 }
-
-// module.exports = {
-//     query: (text, params, callback) => {
-//         let query = client.query(text, params, callback)
-//         client.end();
-//         return query;
-//     },
-// }
