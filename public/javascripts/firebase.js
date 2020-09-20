@@ -18,15 +18,15 @@ let ui = new firebaseui.auth.AuthUI(firebase.auth());
 let uiConfig = {
     callbacks: {
         signInSuccessWithAuthResult(authResult, redirectUrl) {
-            firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
+            firebase.auth().currentUser.getIdToken(true).then(function (idToken) {
                 $.ajax({
-                    url: "/",
-                    type: 'GET',
+                    url: "/login",
+                    type: 'POST',
                     headers: {Authorization: idToken}
-                }).done(function (){
+                }).done(function () {
                     window.location.replace('/index');
                 });
-            }).catch(function(error) {
+            }).catch(function (error) {
                 console.log('Error trying to get user! ' + error);
             });
             return false;
