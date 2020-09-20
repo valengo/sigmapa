@@ -11,4 +11,8 @@ module.exports = class UserRepository {
     async addUser(user) {
         await this.DBSource.add(user);
     }
+
+    async update(user) {
+        await this.DBSource.update(user);
+    }
 }
