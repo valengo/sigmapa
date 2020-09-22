@@ -1,3 +1,5 @@
+const User = require('../../../entities/user');
+
 module.exports = class UserRepository {
     constructor(DBSource, RemoteAuthService) {
         this.DBSource = DBSource;
@@ -5,7 +7,12 @@ module.exports = class UserRepository {
     }
 
     async getUserByEmail(email) {
-        return await this.DBSource.getUserByEmail(email);
+        let row = await this.DBSource.getUserByEmail(email);
+        if (row === undefined) {
+            return null;
+        }
+        // noinspection JSUnresolvedVariable
+        return new User(row.user_id, row.role_id, row.uid, row.email, row.name);
     }
 
     async addUser(user) {
@@ -15,4 +22,5 @@ module.exports = class UserRepository {
     async update(user) {
         await this.DBSource.update(user);
     }
+
 }

@@ -1,9 +1,14 @@
 const express = require('express');
-const router = express.Router();
+const MainMapController = require('../controllers/main-map');
 
-/* GET main map page. */
-router.get('/', function(req, res, next) {
-    res.render('main-map', { name: 'Mapa principal' });
-});
+const mainMapRouter = (dependencies, defaultValues) => {
+    const router = express.Router();
+    let controller = MainMapController(dependencies, defaultValues);
 
-module.exports = router;
+    router.route('/').get(controller.RenderMainMap);
+    router.route('/data').get(controller.LoadMainMapData);
+
+    return router;
+};
+
+module.exports = mainMapRouter;

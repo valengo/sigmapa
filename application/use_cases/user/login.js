@@ -9,7 +9,7 @@ module.exports = (RemoteAuthService, UserRepository) => {
             user = new User(null, 'U', decodedToken.uid, decodedToken.email, decodedToken.name);
             await UserRepository.addUser(user);
         } else if (user.uid === null) {
-            user = new User(user.user_id, user.role_id, decodedToken.uid, user.email, decodedToken.name);
+            user = new User(user.userId, user.roleId, decodedToken.uid, user.email, decodedToken.name);
             // TODO: add validations
             await UserRepository.update(user);
         }

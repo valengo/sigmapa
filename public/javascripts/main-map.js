@@ -27,19 +27,32 @@ let categories = [
 ];
 
 let map;
-var lastMarker = undefined;
+let lastMarker = undefined;
 
 /**
  * Map handling
  */
 
-function initMap(elementId='map') {
+function initMap(elementId = 'map') {
     let uluru = {lat: -3.7899266, lng: -38.5889873};
     map = new google.maps.Map(
         document.getElementById(elementId), {zoom: 11, center: uluru});
 
+    getMainMapData();
+
     map.addListener('click', handleMapClick)
 
+}
+
+function getMainMapData() {
+    $.ajax({
+        url: '/main-map/data',
+        type: 'GET',
+    }).done(function (data) {
+        console.log('data' + data);
+    }).catch(function (error) {
+        console.log(error);
+    });
 }
 
 function handleMapClick(e) {
@@ -58,9 +71,9 @@ function handleMapClick(e) {
  * Selectors handling
  */
 
-$(categorySelectId).change(function (){
+$(categorySelectId).change(function () {
     let selectedCategory = $(this).children("option:selected").val();
-    let subCategories = categories[selectedCategory -1].subCategories
+    let subCategories = categories[selectedCategory - 1].subCategories
 
     $(subCategorySelectId).empty()
     for (let i = 0; i < subCategories.length; i++) {
@@ -75,7 +88,7 @@ $(categorySelectId).change(function (){
  *  Buttons handling
  */
 
-$('#add-marker-btn').click(function (){
+$('#add-marker-btn').click(function () {
     let selectedCategory = $(categorySelectId).children("option:selected").val();
     let selectedSubCategory = $(subCategorySelectId).children("option:selected").val();
 
@@ -87,7 +100,7 @@ $('#add-marker-btn').click(function (){
     $(addMarkerModalId).modal('toggle')
 });
 
-$('#cancel-add-marker-btn').click(function (){
+$('#cancel-add-marker-btn').click(function () {
 });
 
 /**
@@ -99,5 +112,7 @@ $(addMarkerModalId).on('hidden.bs.modal', function () {
         lastMarker.setMap(null);
     }
 });
+
+
 
 

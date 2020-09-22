@@ -795,13 +795,14 @@ true posixrules
     <database id="3" parent="1" name="sigmapa">
       <ObjectId>16393</ObjectId>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>1315</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1487</IntrospectionStateNumber>
       <Current>1</Current>
-      <Relations>sequence|table|18021|18023|1
-sequence|table|18045|18047|1
-sequence|table|18057|18059|1
-sequence|table|18067|18069|1
-sequence|table|18087|18089|1
+      <Relations>sequence|table|18258|18260|1
+sequence|table|18282|18284|1
+sequence|table|18294|18296|1
+sequence|table|18304|18306|1
+sequence|table|18324|18326|1
+sequence|table|18351|18353|1
 </Relations>
     </database>
     <role id="4" parent="1" name="pg_execute_server_program">
@@ -852,7 +853,7 @@ sequence|table|18087|18089|1
       <ObjectId>17247</ObjectId>
       <StateNumber>948</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>1316</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1488</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <access-method id="16" parent="3" name="heap">
@@ -923,514 +924,588 @@ sequence|table|18087|18089|1
     <language id="26" parent="3" name="plpgsql"/>
     <language id="27" parent="3" name="sql"/>
     <sequence id="28" parent="15" name="maps_map_id_seq">
-      <ObjectId>18045</ObjectId>
+      <ObjectId>18282</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <DataType>integer|0s</DataType>
     </sequence>
     <sequence id="29" parent="15" name="marker_categories_category_id_seq">
-      <ObjectId>18057</ObjectId>
+      <ObjectId>18294</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <DataType>integer|0s</DataType>
     </sequence>
     <sequence id="30" parent="15" name="marker_subcategories_subcategory_id_seq">
-      <ObjectId>18067</ObjectId>
+      <ObjectId>18304</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <DataType>integer|0s</DataType>
     </sequence>
-    <sequence id="31" parent="15" name="reports_report_id_seq">
-      <ObjectId>18087</ObjectId>
+    <sequence id="31" parent="15" name="markers_marker_id_seq">
+      <ObjectId>18351</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <DataType>integer|0s</DataType>
     </sequence>
-    <sequence id="32" parent="15" name="users_user_id_seq">
-      <ObjectId>18021</ObjectId>
+    <sequence id="32" parent="15" name="reports_report_id_seq">
+      <ObjectId>18324</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <DataType>integer|0s</DataType>
     </sequence>
-    <table id="33" parent="15" name="maps">
-      <ObjectId>18047</ObjectId>
+    <sequence id="33" parent="15" name="users_user_id_seq">
+      <ObjectId>18258</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1308</StateNumber>
-    </table>
-    <table id="34" parent="15" name="marker_categories">
-      <ObjectId>18059</ObjectId>
+      <StateNumber>1480</StateNumber>
+      <DataType>integer|0s</DataType>
+    </sequence>
+    <table id="34" parent="15" name="maps">
+      <ObjectId>18284</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
     </table>
-    <table id="35" parent="15" name="marker_subcategories">
-      <ObjectId>18069</ObjectId>
+    <table id="35" parent="15" name="marker_categories">
+      <ObjectId>18296</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
     </table>
-    <table id="36" parent="15" name="migrations">
-      <ObjectId>18005</ObjectId>
+    <table id="36" parent="15" name="marker_subcategories">
+      <ObjectId>18306</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1307</StateNumber>
+      <StateNumber>1480</StateNumber>
     </table>
-    <table id="37" parent="15" name="report_status">
-      <ObjectId>18079</ObjectId>
+    <table id="37" parent="15" name="markers">
+      <ObjectId>18353</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
     </table>
-    <table id="38" parent="15" name="reports">
-      <ObjectId>18089</ObjectId>
+    <table id="38" parent="15" name="migrations">
+      <ObjectId>18242</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1479</StateNumber>
     </table>
-    <table id="39" parent="15" name="session">
-      <ObjectId>18036</ObjectId>
+    <table id="39" parent="15" name="report_status">
+      <ObjectId>18316</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
     </table>
-    <table id="40" parent="15" name="user_roles">
-      <ObjectId>18013</ObjectId>
+    <table id="40" parent="15" name="reports">
+      <ObjectId>18326</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
     </table>
-    <table id="41" parent="15" name="users">
-      <ObjectId>18023</ObjectId>
+    <table id="41" parent="15" name="session">
+      <ObjectId>18273</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
     </table>
-    <column id="42" parent="33" name="map_id">
+    <table id="42" parent="15" name="user_roles">
+      <ObjectId>18250</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>1480</StateNumber>
+    </table>
+    <table id="43" parent="15" name="users">
+      <ObjectId>18260</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>1480</StateNumber>
+    </table>
+    <column id="44" parent="34" name="map_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>23</TypeId>
       <IdentityKind>by-default</IdentityKind>
     </column>
-    <column id="43" parent="33" name="user_id">
+    <column id="45" parent="34" name="user_id">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="44" parent="33" name="center_location">
+    <column id="46" parent="34" name="center_location">
       <Position>3</Position>
       <DataType>point|0s</DataType>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>600</TypeId>
     </column>
-    <column id="45" parent="33" name="name">
+    <column id="47" parent="34" name="name">
       <Position>4</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="46" parent="33" name="maps_pkey">
-      <ObjectId>18050</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <index id="48" parent="34" name="maps_pkey">
+      <ObjectId>18287</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>map_id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="47" parent="33" name="maps_pkey">
-      <ObjectId>18051</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <key id="49" parent="34" name="maps_pkey">
+      <ObjectId>18288</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>map_id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>maps_pkey</UnderlyingIndexName>
     </key>
-    <foreign-key id="48" parent="33" name="fk_user">
-      <ObjectId>18052</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <foreign-key id="50" parent="34" name="fk_user">
+      <ObjectId>18289</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>user_id</ColNames>
-      <RefTableId>18023</RefTableId>
+      <RefTableId>18260</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>users</RefTableName>
       <RefKeyName>users_pkey</RefKeyName>
       <RefColNames>user_id</RefColNames>
     </foreign-key>
-    <column id="49" parent="34" name="category_id">
+    <column id="51" parent="35" name="category_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>23</TypeId>
       <IdentityKind>by-default</IdentityKind>
     </column>
-    <column id="50" parent="34" name="description">
+    <column id="52" parent="35" name="description">
       <Position>2</Position>
       <DataType>varchar|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="51" parent="34" name="marker_categories_pkey">
-      <ObjectId>18065</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <index id="53" parent="35" name="marker_categories_pkey">
+      <ObjectId>18302</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>category_id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="52" parent="34" name="marker_categories_pkey">
-      <ObjectId>18066</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <key id="54" parent="35" name="marker_categories_pkey">
+      <ObjectId>18303</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>category_id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>marker_categories_pkey</UnderlyingIndexName>
     </key>
-    <column id="53" parent="35" name="subcategory_id">
+    <column id="55" parent="36" name="subcategory_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>23</TypeId>
       <IdentityKind>by-default</IdentityKind>
     </column>
-    <column id="54" parent="35" name="category_id">
+    <column id="56" parent="36" name="category_id">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="55" parent="35" name="description">
+    <column id="57" parent="36" name="description">
       <Position>3</Position>
       <DataType>varchar(120)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="56" parent="35" name="marker_subcategories_pkey">
-      <ObjectId>18072</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <index id="58" parent="36" name="marker_subcategories_pkey">
+      <ObjectId>18309</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>subcategory_id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="57" parent="35" name="marker_subcategories_pkey">
-      <ObjectId>18073</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <key id="59" parent="36" name="marker_subcategories_pkey">
+      <ObjectId>18310</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>subcategory_id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>marker_subcategories_pkey</UnderlyingIndexName>
     </key>
-    <foreign-key id="58" parent="35" name="fk_category">
-      <ObjectId>18074</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <foreign-key id="60" parent="36" name="fk_category">
+      <ObjectId>18311</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>category_id</ColNames>
-      <RefTableId>18059</RefTableId>
+      <RefTableId>18296</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>marker_categories</RefTableName>
       <RefKeyName>marker_categories_pkey</RefKeyName>
       <RefColNames>category_id</RefColNames>
     </foreign-key>
-    <column id="59" parent="36" name="id">
+    <column id="61" parent="37" name="marker_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1307</StateNumber>
-      <TypeId>23</TypeId>
-    </column>
-    <column id="60" parent="36" name="name">
-      <Position>2</Position>
-      <DataType>varchar(100)|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>1307</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="61" parent="36" name="hash">
-      <Position>3</Position>
-      <DataType>varchar(40)|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>1307</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="62" parent="36" name="executed_at">
-      <Position>4</Position>
-      <DataType>timestamp|0s</DataType>
-      <StateNumber>1307</StateNumber>
-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
-      <TypeId>1114</TypeId>
-    </column>
-    <index id="63" parent="36" name="migrations_pkey">
-      <ObjectId>18009</ObjectId>
-      <StateNumber>1307</StateNumber>
-      <ColNames>id</ColNames>
-      <Unique>1</Unique>
-      <Primary>1</Primary>
-    </index>
-    <index id="64" parent="36" name="migrations_name_key">
-      <ObjectId>18011</ObjectId>
-      <StateNumber>1307</StateNumber>
-      <ColNames>name</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <key id="65" parent="36" name="migrations_pkey">
-      <ObjectId>18010</ObjectId>
-      <StateNumber>1307</StateNumber>
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>migrations_pkey</UnderlyingIndexName>
-    </key>
-    <key id="66" parent="36" name="migrations_name_key">
-      <ObjectId>18012</ObjectId>
-      <StateNumber>1307</StateNumber>
-      <ColNames>name</ColNames>
-      <UnderlyingIndexName>migrations_name_key</UnderlyingIndexName>
-    </key>
-    <column id="67" parent="37" name="report_status_id">
-      <Position>1</Position>
-      <DataType>char|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
-      <TypeId>1042</TypeId>
-    </column>
-    <column id="68" parent="37" name="description">
-      <Position>2</Position>
-      <DataType>varchar|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <index id="69" parent="37" name="report_status_pkey">
-      <ObjectId>18085</ObjectId>
-      <StateNumber>1308</StateNumber>
-      <ColNames>report_status_id</ColNames>
-      <Unique>1</Unique>
-      <Primary>1</Primary>
-    </index>
-    <key id="70" parent="37" name="report_status_pkey">
-      <ObjectId>18086</ObjectId>
-      <StateNumber>1308</StateNumber>
-      <ColNames>report_status_id</ColNames>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>report_status_pkey</UnderlyingIndexName>
-    </key>
-    <column id="71" parent="38" name="report_id">
-      <Position>1</Position>
-      <DataType>integer|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>23</TypeId>
       <IdentityKind>by-default</IdentityKind>
     </column>
-    <column id="72" parent="38" name="user_id">
+    <column id="62" parent="37" name="map_id">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="73" parent="38" name="map_id">
+    <column id="63" parent="37" name="subcategory_id">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="74" parent="38" name="subcategory_id">
+    <column id="64" parent="37" name="location">
       <Position>4</Position>
-      <DataType>integer|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
-      <TypeId>23</TypeId>
-    </column>
-    <column id="75" parent="38" name="report_status_id">
-      <Position>5</Position>
-      <DataType>char|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
-      <TypeId>1042</TypeId>
-    </column>
-    <column id="76" parent="38" name="location">
-      <Position>6</Position>
       <DataType>point|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>600</TypeId>
     </column>
-    <column id="77" parent="38" name="note">
-      <Position>7</Position>
-      <DataType>varchar(120)|0s</DataType>
-      <StateNumber>1308</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <index id="78" parent="38" name="reports_pkey">
-      <ObjectId>18092</ObjectId>
-      <StateNumber>1308</StateNumber>
-      <ColNames>report_id</ColNames>
+    <index id="65" parent="37" name="markers_pkey">
+      <ObjectId>18356</ObjectId>
+      <StateNumber>1480</StateNumber>
+      <ColNames>marker_id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="79" parent="38" name="reports_pkey">
-      <ObjectId>18093</ObjectId>
-      <StateNumber>1308</StateNumber>
-      <ColNames>report_id</ColNames>
+    <key id="66" parent="37" name="markers_pkey">
+      <ObjectId>18357</ObjectId>
+      <StateNumber>1480</StateNumber>
+      <ColNames>marker_id</ColNames>
       <Primary>1</Primary>
-      <UnderlyingIndexName>reports_pkey</UnderlyingIndexName>
+      <UnderlyingIndexName>markers_pkey</UnderlyingIndexName>
     </key>
-    <foreign-key id="80" parent="38" name="fk_user">
-      <ObjectId>18094</ObjectId>
-      <StateNumber>1308</StateNumber>
-      <ColNames>user_id</ColNames>
-      <RefTableId>18023</RefTableId>
-      <RefColPositions>1</RefColPositions>
-      <RefTableName>users</RefTableName>
-      <RefKeyName>users_pkey</RefKeyName>
-      <RefColNames>user_id</RefColNames>
-    </foreign-key>
-    <foreign-key id="81" parent="38" name="fk_map">
-      <ObjectId>18099</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <foreign-key id="67" parent="37" name="fk_map">
+      <ObjectId>18358</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>map_id</ColNames>
-      <RefTableId>18047</RefTableId>
+      <RefTableId>18284</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>maps</RefTableName>
       <RefKeyName>maps_pkey</RefKeyName>
       <RefColNames>map_id</RefColNames>
     </foreign-key>
-    <foreign-key id="82" parent="38" name="fk_subcategory">
-      <ObjectId>18104</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <foreign-key id="68" parent="37" name="fk_subcategory">
+      <ObjectId>18363</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>subcategory_id</ColNames>
-      <RefTableId>18069</RefTableId>
+      <RefTableId>18306</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>marker_subcategories</RefTableName>
       <RefKeyName>marker_subcategories_pkey</RefKeyName>
       <RefColNames>subcategory_id</RefColNames>
     </foreign-key>
-    <foreign-key id="83" parent="38" name="fk_report_status">
-      <ObjectId>18109</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <column id="69" parent="38" name="id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1479</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="70" parent="38" name="name">
+      <Position>2</Position>
+      <DataType>varchar(100)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1479</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="71" parent="38" name="hash">
+      <Position>3</Position>
+      <DataType>varchar(40)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1479</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="72" parent="38" name="executed_at">
+      <Position>4</Position>
+      <DataType>timestamp|0s</DataType>
+      <StateNumber>1479</StateNumber>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <TypeId>1114</TypeId>
+    </column>
+    <index id="73" parent="38" name="migrations_pkey">
+      <ObjectId>18246</ObjectId>
+      <StateNumber>1479</StateNumber>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <index id="74" parent="38" name="migrations_name_key">
+      <ObjectId>18248</ObjectId>
+      <StateNumber>1479</StateNumber>
+      <ColNames>name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="75" parent="38" name="migrations_pkey">
+      <ObjectId>18247</ObjectId>
+      <StateNumber>1479</StateNumber>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>migrations_pkey</UnderlyingIndexName>
+    </key>
+    <key id="76" parent="38" name="migrations_name_key">
+      <ObjectId>18249</ObjectId>
+      <StateNumber>1479</StateNumber>
+      <ColNames>name</ColNames>
+      <UnderlyingIndexName>migrations_name_key</UnderlyingIndexName>
+    </key>
+    <column id="77" parent="39" name="report_status_id">
+      <Position>1</Position>
+      <DataType>char|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1480</StateNumber>
+      <TypeId>1042</TypeId>
+    </column>
+    <column id="78" parent="39" name="description">
+      <Position>2</Position>
+      <DataType>varchar|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1480</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="79" parent="39" name="report_status_pkey">
+      <ObjectId>18322</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>report_status_id</ColNames>
-      <RefTableId>18079</RefTableId>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="80" parent="39" name="report_status_pkey">
+      <ObjectId>18323</ObjectId>
+      <StateNumber>1480</StateNumber>
+      <ColNames>report_status_id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>report_status_pkey</UnderlyingIndexName>
+    </key>
+    <column id="81" parent="40" name="report_id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1480</StateNumber>
+      <TypeId>23</TypeId>
+      <IdentityKind>by-default</IdentityKind>
+    </column>
+    <column id="82" parent="40" name="user_id">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1480</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="83" parent="40" name="map_id">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1480</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="84" parent="40" name="subcategory_id">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1480</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="85" parent="40" name="report_status_id">
+      <Position>5</Position>
+      <DataType>char|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1480</StateNumber>
+      <TypeId>1042</TypeId>
+    </column>
+    <column id="86" parent="40" name="location">
+      <Position>6</Position>
+      <DataType>point|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1480</StateNumber>
+      <TypeId>600</TypeId>
+    </column>
+    <column id="87" parent="40" name="note">
+      <Position>7</Position>
+      <DataType>varchar(120)|0s</DataType>
+      <StateNumber>1480</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="88" parent="40" name="reports_pkey">
+      <ObjectId>18329</ObjectId>
+      <StateNumber>1480</StateNumber>
+      <ColNames>report_id</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="89" parent="40" name="reports_pkey">
+      <ObjectId>18330</ObjectId>
+      <StateNumber>1480</StateNumber>
+      <ColNames>report_id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>reports_pkey</UnderlyingIndexName>
+    </key>
+    <foreign-key id="90" parent="40" name="fk_user">
+      <ObjectId>18331</ObjectId>
+      <StateNumber>1480</StateNumber>
+      <ColNames>user_id</ColNames>
+      <RefTableId>18260</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>users</RefTableName>
+      <RefKeyName>users_pkey</RefKeyName>
+      <RefColNames>user_id</RefColNames>
+    </foreign-key>
+    <foreign-key id="91" parent="40" name="fk_map">
+      <ObjectId>18336</ObjectId>
+      <StateNumber>1480</StateNumber>
+      <ColNames>map_id</ColNames>
+      <RefTableId>18284</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>maps</RefTableName>
+      <RefKeyName>maps_pkey</RefKeyName>
+      <RefColNames>map_id</RefColNames>
+    </foreign-key>
+    <foreign-key id="92" parent="40" name="fk_subcategory">
+      <ObjectId>18341</ObjectId>
+      <StateNumber>1480</StateNumber>
+      <ColNames>subcategory_id</ColNames>
+      <RefTableId>18306</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>marker_subcategories</RefTableName>
+      <RefKeyName>marker_subcategories_pkey</RefKeyName>
+      <RefColNames>subcategory_id</RefColNames>
+    </foreign-key>
+    <foreign-key id="93" parent="40" name="fk_report_status">
+      <ObjectId>18346</ObjectId>
+      <StateNumber>1480</StateNumber>
+      <ColNames>report_status_id</ColNames>
+      <RefTableId>18316</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>report_status</RefTableName>
       <RefKeyName>report_status_pkey</RefKeyName>
       <RefColNames>report_status_id</RefColNames>
     </foreign-key>
-    <column id="84" parent="39" name="sid">
+    <column id="94" parent="41" name="sid">
       <Position>1</Position>
       <DataType>varchar|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="85" parent="39" name="sess">
+    <column id="95" parent="41" name="sess">
       <Position>2</Position>
       <DataType>json|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>114</TypeId>
     </column>
-    <column id="86" parent="39" name="expire">
+    <column id="96" parent="41" name="expire">
       <Position>3</Position>
       <DataType>timestamp(6)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>1114</TypeId>
     </column>
-    <index id="87" parent="39" name="session_pkey">
-      <ObjectId>18042</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <index id="97" parent="41" name="session_pkey">
+      <ObjectId>18279</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>sid</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <index id="88" parent="39" name="IDX_session_expire">
-      <ObjectId>18044</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <index id="98" parent="41" name="IDX_session_expire">
+      <ObjectId>18281</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>expire</ColNames>
     </index>
-    <key id="89" parent="39" name="session_pkey">
-      <ObjectId>18043</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <key id="99" parent="41" name="session_pkey">
+      <ObjectId>18280</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>sid</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>session_pkey</UnderlyingIndexName>
     </key>
-    <column id="90" parent="40" name="role_id">
+    <column id="100" parent="42" name="role_id">
       <Position>1</Position>
       <DataType>char|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>1042</TypeId>
     </column>
-    <column id="91" parent="40" name="description">
+    <column id="101" parent="42" name="description">
       <Position>2</Position>
       <DataType>varchar|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="92" parent="40" name="user_roles_pkey">
-      <ObjectId>18019</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <index id="102" parent="42" name="user_roles_pkey">
+      <ObjectId>18256</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>role_id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="93" parent="40" name="user_roles_pkey">
-      <ObjectId>18020</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <key id="103" parent="42" name="user_roles_pkey">
+      <ObjectId>18257</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>role_id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>user_roles_pkey</UnderlyingIndexName>
     </key>
-    <column id="94" parent="41" name="user_id">
+    <column id="104" parent="43" name="user_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>23</TypeId>
       <IdentityKind>by-default</IdentityKind>
     </column>
-    <column id="95" parent="41" name="role_id">
+    <column id="105" parent="43" name="role_id">
       <Position>2</Position>
       <DataType>char|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>1042</TypeId>
     </column>
-    <column id="96" parent="41" name="uid">
+    <column id="106" parent="43" name="uid">
       <Position>3</Position>
       <DataType>varchar|0s</DataType>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="97" parent="41" name="email">
+    <column id="107" parent="43" name="email">
       <Position>4</Position>
       <DataType>varchar|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="98" parent="41" name="name">
+    <column id="108" parent="43" name="name">
       <Position>5</Position>
       <DataType>varchar|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1308</StateNumber>
+      <StateNumber>1480</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="99" parent="41" name="users_pkey">
-      <ObjectId>18029</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <index id="109" parent="43" name="users_pkey">
+      <ObjectId>18266</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>user_id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="100" parent="41" name="users_pkey">
-      <ObjectId>18030</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <key id="110" parent="43" name="users_pkey">
+      <ObjectId>18267</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>user_id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>users_pkey</UnderlyingIndexName>
     </key>
-    <foreign-key id="101" parent="41" name="fk_role">
-      <ObjectId>18031</ObjectId>
-      <StateNumber>1308</StateNumber>
+    <foreign-key id="111" parent="43" name="fk_role">
+      <ObjectId>18268</ObjectId>
+      <StateNumber>1480</StateNumber>
       <ColNames>role_id</ColNames>
-      <RefTableId>18013</RefTableId>
+      <RefTableId>18250</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>user_roles</RefTableName>
       <RefKeyName>user_roles_pkey</RefKeyName>

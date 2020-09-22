@@ -11,6 +11,7 @@ const loginRouter = require('./routes/login');
 
 // TODO proper use it
 const appDependencies = require('./configuration/project-dependencies');
+const defaultValues = require('./configuration/default-values');
 
 const app = express();
 
@@ -18,8 +19,8 @@ const app = express();
 appDependencies.DatabaseService.makeMigration()
     .then(() => {
             console.log('Database was initialized!');
-            appDependencies.UserDBSource.getUserByEmail('email').then(user => {
-                console.log(user);
+            appDependencies.MapRepository.getOneById(1).then((map) => {
+                console.log(map);
             });
             configureApp();
         }
@@ -36,14 +37,6 @@ function verifyFirebaseIdToken(req, res, next) {
     if (idToken === undefined) {
         return res.redirect('/login');
     }
-
-    appDependencies.RemoteAuthService.getDecodedToken(idToken).then(function (decodedToken) {
-        req.session.email = decodedToken.email
-        return next();
-    }).catch(function (error) {
-        console.log(error);
-        return res.redirect('/login');
-    });
 }
 
 function isAdminLoggedIn(req, res, next) {
@@ -69,7 +62,7 @@ function configureApp() {
     }));
 
     app.use('/index', verifyFirebaseIdToken, indexRouter);
-    app.use('/main-map', verifyFirebaseIdToken, mainMapRouter);
+    app.use('/main-map', verifyFirebaseIdToken, mainMapRouter(appDependencies, defaultValues));
     app.use('/login', loginRouter(appDependencies));
 
     // view engine setup

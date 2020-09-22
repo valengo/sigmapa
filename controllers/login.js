@@ -9,10 +9,11 @@ module.exports = function (dependencies) {
         let {authorization} = req.headers;
 
         LoginUseCase.Perform(authorization).then(user => {
-            req.session.user = user;
-            res.redirect('/');
+            req.session.email = user.email;
+            res.sendStatus(200);
         }, (error) => {
             console.log('Failed when trying to login -> ' + error.message);
+            // TODO handle error response
             next(error);
         });
     };

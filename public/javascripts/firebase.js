@@ -20,7 +20,7 @@ let uiConfig = {
         signInSuccessWithAuthResult(authResult, redirectUrl) {
             firebase.auth().currentUser.getIdToken(true).then(function (idToken) {
                 $.ajax({
-                    url: "/login",
+                    url: '/login',
                     type: 'POST',
                     headers: {Authorization: idToken}
                 }).done(function () {
