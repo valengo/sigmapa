@@ -59,7 +59,8 @@ module.exports = class ReportPGSource extends DBSource {
     async getAllByUserIdAndMapId(userId, mapId) {
         let text = 'SELECT * FROM reports WHERE user_id = $1 AND map_id = $2';
         try {
-            return (await this.db.query(text, [userId, mapId])).rows;
+            let result = await this.db.query(text, [userId, mapId]);
+            return result.rows;
         } catch (error) {
             throw new Error('Failed while getting all reports by userId and mapId -> ' + error.message);
         }

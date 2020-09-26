@@ -9,7 +9,7 @@ module.exports = class ReportRepository {
     }
 
     async getAllByUserIdAndMapId(userId, mapId) {
-        let rows = this.DBSource.getAllByUserIdAndMapId(userId, mapId);
+        let rows = await this.DBSource.getAllByUserIdAndMapId(userId, mapId);
         let reports = [];
 
         for (let i = 0; i < rows.length; ++i) {
