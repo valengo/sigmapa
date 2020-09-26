@@ -8,8 +8,10 @@ module.exports = class ReportPGSource extends DBSource {
     }
 
     async add(report) {
-        let text = 'INSERT INTO reports(user_id, map_id, subcategory_id, report_status_id, location, note) VALUES ($1, $2, $3, $4, $5) RETURNING report_id';
-        let values = [report.userId, report.mapId, report.subcategoryId, report.reportStatusId, report.location, report.note];
+        let location = `(${report.location[0]}, ${report.location[1]})`
+        let text = 'INSERT INTO reports(user_id, map_id, subcategory_id, report_status_id, location, note) VALUES ($1, $2, $3, $4, $5, $6) RETURNING report_id';
+        let values = [report.userId, report.mapId, report.subcategoryId, report.reportStatusId, location, report.note];
+
         try {
             return (await this.db.query(text, values)).rows;
         } catch (error) {

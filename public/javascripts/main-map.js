@@ -58,7 +58,7 @@ function sendReport(categoryId, location) {
     $.ajax({
         url: '/report',
         type: 'POST',
-        body: JSON.stringify({report: report}),
+        data: {report: report},
     }).done(function (data) {
         console.log('Report added!' + data);
     }).catch(function (error) {

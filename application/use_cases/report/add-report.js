@@ -12,7 +12,7 @@ module.exports = (UserRepository, MapRepository, ReportRepository) => {
 
         // TODO for now, all maps are public
         // TODO check if map exists
-        ReportRepository.add(report);
+        await ReportRepository.add(report);
     }
 
     return {

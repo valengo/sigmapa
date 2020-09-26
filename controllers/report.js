@@ -11,24 +11,26 @@ module.exports = function (dependencies) {
 
         let report;
         let email;
-        
+
+        console.log(req.body);
+
         try {
             let {mapId} = req.body.report;
             let {subcategoryId} = req.body.report;
             let location = [req.body.report.location.lat, req.body.report.location.long];
-            let {note} = req.body.note;
+            let {note} = req.body.report.note;
             email = req.session.email;
 
             report = new Report(null, null, mapId,
                 subcategoryId, null, location, note);
         } catch (error) {
-            throw new Error('Failed parsing body request');
+            throw new Error('Failed parsing body request -> ' + error);
         }
 
-        AddNewReportUseCase.Perform(report, email)
-            .then(() => {
-                res.sendStatus(200);
-            }).catch(next);
+        AddNewReportUseCase.Perform(report, email).then(() => {
+        }, error => {
+            next(error);
+        });
     }
 
     return {

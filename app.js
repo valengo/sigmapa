@@ -4,6 +4,7 @@ const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session)
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser')
 const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const mainMapRouter = require('./routes/main-map');
@@ -62,11 +63,6 @@ function configureApp() {
 
     }));
 
-    app.use('/index', verifyFirebaseIdToken, indexRouter);
-    app.use('/main-map', verifyFirebaseIdToken, mainMapRouter(appDependencies, defaultValues));
-    app.use('/report', verifyFirebaseIdToken, reportRouter(appDependencies));
-    app.use('/login', loginRouter(appDependencies));
-
     // view engine setup
     app.set('views', path.join(__dirname, 'views'));
     app.set('view engine', 'pug');
@@ -74,8 +70,15 @@ function configureApp() {
     app.use(logger('dev'));
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
+    app.use(bodyParser.urlencoded({extended: false}))
+    app.use(bodyParser.json())
     app.use(cookieParser());
     app.use(express.static(path.join(__dirname, 'public')));
+
+    app.use('/index', verifyFirebaseIdToken, indexRouter);
+    app.use('/main-map', verifyFirebaseIdToken, mainMapRouter(appDependencies, defaultValues));
+    app.use('/report', verifyFirebaseIdToken, reportRouter(appDependencies));
+    app.use('/login', loginRouter(appDependencies));
 
     app.get('/', verifyFirebaseIdToken, function (req, res, next) {
         return res.redirect('/index');
