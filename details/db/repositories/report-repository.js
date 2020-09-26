@@ -19,4 +19,10 @@ module.exports = class ReportRepository {
         }
         return reports;
     }
+
+    async add(report) {
+        await this.DBSource.add(report);
+    }
+
+
 }

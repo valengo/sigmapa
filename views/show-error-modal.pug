@@ -1,0 +1,19 @@
+block content
+    #internal-server-error-modal.modal.fade(tabindex="-1" role="dialog")
+        .modal-dialog(role="document")
+            .modal-content
+                .modal-header.text-center
+                    h5.modal-title.w-100 &#x26A0;
+                    button.close(type="button" data-dismiss="modal" aria-label="Close")
+                        span(aria-hidden="true") ×
+                .modal-body
+                    .container-fluid
+                        .row
+                            .col-12
+                                h6 Não foi possível completar a sua requisição
+                                | Ocorreu um erro interno no servidor ao processar a sua requisição.
+                                | Abaixo você pode encontrar a mensagem de erro recebida:
+                                p#error-message
+                                | Se o erro persistir, encaminhe-o para o e-mail mail@mail.
+                .modal-footer
+                    button#add-marker-btn.btn.btn-primary(type="button") Entendi

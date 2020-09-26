@@ -3,26 +3,23 @@ let categorySelectId = '#category-selection';
 let subCategorySelectId = '#sub-category-selection';
 
 let categories = [
-    new MarkerCategory('Meio ambiente', '&#127795', [
-        new MarkerCategory('Descarte irregular de resíduos sólidos', '&#127795'),
-        new MarkerCategory('Vazadouro a céu aberto', '&#127795'),
-        new MarkerCategory('Presença de lixão', '&#127795'),
-        new MarkerCategory('Poluição de rios', '&#127795'),
-        new MarkerCategory('Imóveis abandonados, possíveis focos de doenças', '&#127795'),
-        new MarkerCategory('Sugestão de inclusão de novos ecopontos', '&#127795')
+    new MarkerCategory(1, 'Meio ambiente', '&#127795', [
+        new MarkerCategory(1, 'Descarte irregular de resíduos sólidos', '&#127795'),
+        new MarkerCategory(2, 'Vazadouro a céu aberto', '&#127795'),
+        new MarkerCategory(3, 'Presença de lixão', '&#127795'),
+        new MarkerCategory(4, 'Poluição de rios', '&#127795'),
+        new MarkerCategory(5, 'Imóveis abandonados', '&#127795'),
+        new MarkerCategory(6, 'Sugestão de inclusão de novos ecopontos', '&#127795')
 
     ]),
-    new MarkerCategory('Urbanismo', '&#127974', [
-        new MarkerCategory('Buraco na pista', '&#127974'),
-        new MarkerCategory('Rua sem asfalto', '&#127974'),
-        new MarkerCategory('Acidente de trânsito', '&#127974'),
-        new MarkerCategory('Violência urbana: assalto, furto etc', '&#127974'),
-        new MarkerCategory('Poluição Sonora: carros de som, lojas e etc', '&#127974')
-
+    new MarkerCategory(2, 'Urbanismo', '&#127974', [
+        new MarkerCategory(7, 'Buraco na pista', '&#127974'),
+        new MarkerCategory(8, 'Rua sem asfalto', '&#127974'),
+        new MarkerCategory(9, 'Acidente de trânsito', '&#127974')
     ]),
-    new MarkerCategory('População', '&#128106', [
-        new MarkerCategory('Área com risco de desabamento', '&#128106'),
-        new MarkerCategory('Enchentes', '&#128106')
+    new MarkerCategory(3, 'População', '&#128106', [
+        new MarkerCategory(10, 'Área com risco de desabamento', '&#128106'),
+        new MarkerCategory(11, 'Enchentes', '&#128106')
     ])
 ];
 
@@ -51,7 +48,21 @@ function getMainMapData() {
     }).done(function (data) {
         console.log('data' + data);
     }).catch(function (error) {
-        console.log(error);
+        document.documentElement.innerHTML = error.responseText;
+    });
+}
+
+function sendReport(categoryId, location) {
+    let report = new Report(null, null,
+        1, categoryId, null, location);
+    $.ajax({
+        url: '/report',
+        type: 'POST',
+        body: JSON.stringify({report: report}),
+    }).done(function (data) {
+        console.log('Report added!' + data);
+    }).catch(function (error) {
+        document.documentElement.innerHTML = error.responseText;
     });
 }
 
@@ -78,7 +89,7 @@ $(categorySelectId).change(function () {
     $(subCategorySelectId).empty()
     for (let i = 0; i < subCategories.length; i++) {
         $(subCategorySelectId).append(
-            '<option>' + subCategories[i].title + '</option>'
+            '<option value="' + subCategories[i].categoryId + '">' + subCategories[i].title + ' </option>'
         );
     }
 });
@@ -89,10 +100,13 @@ $(categorySelectId).change(function () {
  */
 
 $('#add-marker-btn').click(function () {
-    let selectedCategory = $(categorySelectId).children("option:selected").val();
     let selectedSubCategory = $(subCategorySelectId).children("option:selected").val();
 
-    console.log(selectedCategory, selectedSubCategory)
+    console.log(lastMarker);
+    sendReport(selectedSubCategory, {
+        lat: lastMarker.position.lat(),
+        long: lastMarker.position.lng()
+    });
 
     lastMarker = undefined;
 

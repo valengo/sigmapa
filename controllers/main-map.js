@@ -12,8 +12,8 @@ module.exports = function (dependencies, defaultValues) {
         let GetMainMapUseCase = GetMainMap(MapRepository);
         let {MainMapId} = defaultValues;
 
-        GetMainMapUseCase.Perform(MainMapId).then(map => {
-            res.render('main-map', {map: map})
+        GetMainMapUseCase.Perform(MainMapId).then(() => {
+            res.render('main-map', {name: 'Mapa principal'})
 
         }, (error) => {
             // TODO handle it
@@ -23,7 +23,7 @@ module.exports = function (dependencies, defaultValues) {
 
     };
 
-    const LoadMainMapData = (req, res) => {
+    const LoadMainMapData = (req, res, next) => {
         let GetMapDataUseCase = GetMainMapData(UserRepository, MapRepository, MarkerRepository, ReportRepository);
         let {MainMapId} = defaultValues;
         let {email} = req.session;

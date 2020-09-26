@@ -8,6 +8,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const mainMapRouter = require('./routes/main-map');
 const loginRouter = require('./routes/login');
+const reportRouter = require('./routes/report');
 
 // TODO proper use it
 const appDependencies = require('./configuration/project-dependencies');
@@ -63,6 +64,7 @@ function configureApp() {
 
     app.use('/index', verifyFirebaseIdToken, indexRouter);
     app.use('/main-map', verifyFirebaseIdToken, mainMapRouter(appDependencies, defaultValues));
+    app.use('/report', verifyFirebaseIdToken, reportRouter(appDependencies));
     app.use('/login', loginRouter(appDependencies));
 
     // view engine setup
@@ -71,7 +73,7 @@ function configureApp() {
 
     app.use(logger('dev'));
     app.use(express.json());
-    app.use(express.urlencoded({extended: false}));
+    app.use(express.urlencoded({extended: true}));
     app.use(cookieParser());
     app.use(express.static(path.join(__dirname, 'public')));
 
