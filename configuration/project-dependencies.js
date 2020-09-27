@@ -10,10 +10,13 @@ const UserDBSource = new (require('../details/db/sources/user-pg-source'))(db);
 const MapDBSource = new (require('../details/db/sources/map-pg-source'))(db);
 const MarkerDBSource = new (require('../details/db/sources/marker-pg-source'))(db);
 const ReportDBSource = new (require('../details/db/sources/report-pg-source'))(db);
+const MarkerCategoryDBSource = new (require('../details/db/sources/marker-category-pg-source'))(db);
+const MarkerSubCategoryDBSource = new (require('../details/db/sources/marker-subcategory-pg-source'))(db);
 const UserRepository = require('../details/db/repositories/user-repository');
 const MapRepository = require('../details/db/repositories/map-repository');
 const MarkerRepository = require('../details/db/repositories/marker-repository');
 const ReportRepository = require('../details/db/repositories/report-repository');
+const CategoryRepository = require('../details/db/repositories/category-repository');
 
 
 module.exports = (() => {
@@ -24,6 +27,7 @@ module.exports = (() => {
         UserRepository: new UserRepository(UserDBSource, RemoteAuthService),
         MapRepository: new MapRepository(MapDBSource),
         MarkerRepository: new MarkerRepository(MarkerDBSource),
-        ReportRepository: new ReportRepository(ReportDBSource)
+        ReportRepository: new ReportRepository(ReportDBSource),
+        CategoryRepository: new CategoryRepository(MarkerCategoryDBSource, MarkerSubCategoryDBSource),
     };
 })();

@@ -10,6 +10,8 @@ const indexRouter = require('./routes/index');
 const mainMapRouter = require('./routes/main-map');
 const loginRouter = require('./routes/login');
 const reportRouter = require('./routes/report');
+const categoryRouter = require('./routes/categories');
+
 
 // TODO proper use it
 const appDependencies = require('./configuration/project-dependencies');
@@ -78,6 +80,7 @@ function configureApp() {
     app.use('/index', verifyFirebaseIdToken, indexRouter);
     app.use('/main-map', verifyFirebaseIdToken, mainMapRouter(appDependencies, defaultValues));
     app.use('/report', verifyFirebaseIdToken, reportRouter(appDependencies));
+    app.use('/categories', verifyFirebaseIdToken, categoryRouter(appDependencies));
     app.use('/login', loginRouter(appDependencies));
 
     app.get('/', verifyFirebaseIdToken, function (req, res, next) {

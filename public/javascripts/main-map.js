@@ -45,10 +45,31 @@ function initMap(elementId = 'map') {
     map = new google.maps.Map(
         document.getElementById(elementId), {zoom: 11, center: uluru});
 
+    retrieveData().finally();
+
     getMainMapData();
 
     map.addListener('click', handleMapClick)
 
+}
+
+async function retrieveData() {
+    try {
+        const categoryData = await $.ajax({
+            url: '/categories',
+            type: 'GET',
+        });
+        CategoryRepository.update(categoryData.categories, categoryData.subcategories);
+
+        const mapData = await $.ajax({
+            url: '/main-map/data',
+            type: 'GET',
+        });
+        plotMapData(JSON.parse(mapData));
+    } catch (error) {
+        console.log('ERRO -> ' + error);
+        document.documentElement.innerHTML = error.responseText;
+    }
 }
 
 function getMainMapData() {
@@ -73,7 +94,6 @@ function sendReport(categoryId, location) {
         data: {report: report},
     }).done(function (data) {
         // TODO show success message
-        console.log('Report added!' + data);
     }).catch(function (error) {
         document.documentElement.innerHTML = error.responseText;
     });
@@ -91,8 +111,6 @@ function addMarker(lat, long, markerColor) {
         case MarkerColors.GREEN:
             iconUrl = greenMarker;
     }
-
-    console.log(markerColor, iconUrl);
 
     let position = new google.maps.LatLng(lat, long);
     return new google.maps.Marker({
@@ -117,6 +135,8 @@ function mapParentCategory(subcategory) {
 }
 
 function plotMapData(mapData) {
+    // TODO voltar aqui
+    // usar dados do repositório de categorias para popular o mapa
     for (let i = 0; i < mapData.reports.length; ++i) {
         let report = mapData.reports[i];
         addMarker(report.location.x, report.location.y, mapParentCategory(report.subcategoryId));
@@ -158,14 +178,18 @@ $(categorySelectId).change(function () {
 
 $('#add-marker-btn').click(function () {
     let selectedSubCategory = $(subCategorySelectId).children("option:selected").val();
-
-    console.log(lastMarker);
     sendReport(selectedSubCategory, {
         lat: lastMarker.position.lat(),
         long: lastMarker.position.lng()
     });
 
-    lastMarker = undefined;
+    let position = lastMarker.position;
+    lastMarker.setMap(null);
+
+    // update marker skin
+    addMarker(position.lat(),
+        position.lng(),
+        mapParentCategory(selectedSubCategory));
 
     // noinspection JSUnresolvedFunction
     $(addMarkerModalId).modal('toggle')

@@ -12,8 +12,6 @@ module.exports = function (dependencies) {
         let report;
         let email;
 
-        console.log(req.body);
-
         try {
             let {mapId} = req.body.report;
             let {subcategoryId} = req.body.report;

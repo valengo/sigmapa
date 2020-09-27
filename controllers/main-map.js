@@ -14,10 +14,7 @@ module.exports = function (dependencies, defaultValues) {
 
         GetMainMapUseCase.Perform(MainMapId).then(() => {
             res.render('main-map', {name: 'Mapa principal'})
-
         }, (error) => {
-            // TODO handle it
-            // redirect to error page
             next(error);
         });
 
@@ -31,8 +28,7 @@ module.exports = function (dependencies, defaultValues) {
         GetMapDataUseCase.Perform(email, MainMapId).then(data => {
             res.send(JSON.stringify(data));
         }, (error) => {
-            console.log(error);
-            res.sendStatus(404);
+            next(error);
         });
 
     };
