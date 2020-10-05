@@ -10,15 +10,19 @@ INSERT INTO marker_subcategories(subcategory_id, category_id, description)
 VALUES (5, 1, 'Imóveis abandonados');
 INSERT INTO marker_subcategories(subcategory_id, category_id, description)
 VALUES (6, 1, 'Sugestão de inclusão de novos ecopontos');
+INSERT INTO marker_subcategories(subcategory_id, category_id, description)
+VALUES (7, 1, 'Área de queimada');
+INSERT INTO marker_subcategories(subcategory_id, category_id, description)
+VALUES (8, 1, 'Área de desmatamento');
 
 INSERT INTO marker_subcategories(subcategory_id, category_id, description)
-VALUES (7, 2, 'Buraco na pista');
+VALUES (9, 2, 'Buraco na pista');
 INSERT INTO marker_subcategories(subcategory_id, category_id, description)
-VALUES (8, 2, 'Rua sem asfalto');
+VALUES (10, 2, 'Rua sem asfalto');
 INSERT INTO marker_subcategories(subcategory_id, category_id, description)
-VALUES (9, 2, 'Acidente de trânsito');
+VALUES (11, 2, 'Acidente de trânsito');
 
 INSERT INTO marker_subcategories(subcategory_id, category_id, description)
-VALUES (10, 3, 'Área com risco de desabamento');
+VALUES (12, 3, 'Área com risco de desabamento');
 INSERT INTO marker_subcategories(subcategory_id, category_id, description)
-VALUES (11, 3, 'Enchentes');
+VALUES (13, 3, 'Enchentes');
