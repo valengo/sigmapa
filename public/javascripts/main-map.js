@@ -8,27 +8,6 @@ let addMarkerModalId = '#add-marker-modal';
 let categorySelectId = '#category-selection';
 let subCategorySelectId = '#sub-category-selection';
 
-let categories = [
-    new MarkerCategory(1, 'Meio ambiente', '&#127795', [
-        new MarkerCategory(1, 'Descarte irregular de resíduos sólidos', '&#127795'),
-        new MarkerCategory(2, 'Vazadouro a céu aberto', '&#127795'),
-        new MarkerCategory(3, 'Presença de lixão', '&#127795'),
-        new MarkerCategory(4, 'Poluição de rios', '&#127795'),
-        new MarkerCategory(5, 'Imóveis abandonados', '&#127795'),
-        new MarkerCategory(6, 'Sugestão de inclusão de novos ecopontos', '&#127795')
-
-    ]),
-    new MarkerCategory(2, 'Urbanismo', '&#127974', [
-        new MarkerCategory(7, 'Buraco na pista', '&#127974'),
-        new MarkerCategory(8, 'Rua sem asfalto', '&#127974'),
-        new MarkerCategory(9, 'Acidente de trânsito', '&#127974')
-    ]),
-    new MarkerCategory(3, 'População', '&#128106', [
-        new MarkerCategory(10, 'Área com risco de desabamento', '&#128106'),
-        new MarkerCategory(11, 'Enchentes', '&#128106')
-    ])
-];
-
 let map;
 let lastMarker = undefined;
 let blueMarker = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
@@ -45,21 +24,24 @@ function initMap(elementId = 'map') {
     map = new google.maps.Map(
         document.getElementById(elementId), {zoom: 11, center: uluru});
 
-    retrieveData().finally();
-
-    getMainMapData();
+    retrieveData().then(() => undefined);
 
     map.addListener('click', handleMapClick)
-
 }
+
+/**
+ * Server calls
+ */
 
 async function retrieveData() {
     try {
-        const categoryData = await $.ajax({
+        const res = await $.ajax({
             url: '/categories',
             type: 'GET',
         });
+        let categoryData = JSON.parse(res);
         CategoryRepository.update(categoryData.categories, categoryData.subcategories);
+        configureCategorySelectors();
 
         const mapData = await $.ajax({
             url: '/main-map/data',
@@ -67,22 +49,12 @@ async function retrieveData() {
         });
         plotMapData(JSON.parse(mapData));
     } catch (error) {
-        console.log('ERRO -> ' + error);
-        document.documentElement.innerHTML = error.responseText;
+        if (error.responseText !== undefined) {
+            document.documentElement.innerHTML = error.responseText;
+        } else {
+            console.log('ERRO -> ' + error);
+        }
     }
-}
-
-function getMainMapData() {
-    $.ajax({
-        url: '/main-map/data',
-        type: 'GET',
-    }).done(function (data) {
-        // TODO handle possible error
-        let mapData = JSON.parse(data);
-        plotMapData(mapData);
-    }).catch(function (error) {
-        document.documentElement.innerHTML = error.responseText;
-    });
 }
 
 function sendReport(categoryId, location) {
@@ -98,6 +70,10 @@ function sendReport(categoryId, location) {
         document.documentElement.innerHTML = error.responseText;
     });
 }
+
+/**
+ * Other functions
+ */
 
 function addMarker(lat, long, markerColor) {
     let iconUrl = redMarker;
@@ -122,29 +98,29 @@ function addMarker(lat, long, markerColor) {
     });
 }
 
-function mapParentCategory(subcategory) {
-    let category = parseInt(subcategory);
-    if (category > 0 && category < 7) {
-        return 1;
-    } else if (category < 10) {
-        return 2;
-    } else {
-        return 3;
-    }
-
-}
-
 function plotMapData(mapData) {
-    // TODO voltar aqui
-    // usar dados do repositório de categorias para popular o mapa
     for (let i = 0; i < mapData.reports.length; ++i) {
         let report = mapData.reports[i];
-        addMarker(report.location.x, report.location.y, mapParentCategory(report.subcategoryId));
+        let subcategoryId = Number(report.subcategoryId);
+        addMarker(report.location.x, report.location.y, CategoryRepository.getCategoryId(subcategoryId));
     }
 
     for (let i = 0; i < mapData.markers.length; ++i) {
         let marker = mapData.markers[i];
-        addMarker(marker.location.x, marker.location.y, mapParentCategory(marker.subcategoryId));
+        let subcategoryId = Number(marker.subcategoryId);
+        addMarker(marker.location.x, marker.location.y, CategoryRepository.getCategoryId(subcategoryId));
+    }
+}
+
+function configureCategorySelectors() {
+    let selectedCategory = Number($(categorySelectId).children("option:selected").val());
+    let subCategories = CategoryRepository.getSubcategories(selectedCategory);
+
+    $(subCategorySelectId).empty()
+    for (let i = 0; i < subCategories.length; i++) {
+        $(subCategorySelectId).append(
+            '<option value="' + subCategories[i].subcategoryId + '">' + subCategories[i].description + ' </option>'
+        );
     }
 }
 
@@ -160,15 +136,7 @@ function handleMapClick(e) {
  */
 
 $(categorySelectId).change(function () {
-    let selectedCategory = $(this).children("option:selected").val();
-    let subCategories = categories[selectedCategory - 1].subCategories
-
-    $(subCategorySelectId).empty()
-    for (let i = 0; i < subCategories.length; i++) {
-        $(subCategorySelectId).append(
-            '<option value="' + subCategories[i].categoryId + '">' + subCategories[i].title + ' </option>'
-        );
-    }
+    configureCategorySelectors();
 });
 
 
@@ -177,7 +145,7 @@ $(categorySelectId).change(function () {
  */
 
 $('#add-marker-btn').click(function () {
-    let selectedSubCategory = $(subCategorySelectId).children("option:selected").val();
+    let selectedSubCategory = Number($(subCategorySelectId).children("option:selected").val());
     sendReport(selectedSubCategory, {
         lat: lastMarker.position.lat(),
         long: lastMarker.position.lng()
@@ -189,7 +157,7 @@ $('#add-marker-btn').click(function () {
     // update marker skin
     addMarker(position.lat(),
         position.lng(),
-        mapParentCategory(selectedSubCategory));
+        CategoryRepository.getCategoryId(selectedSubCategory));
 
     // noinspection JSUnresolvedFunction
     $(addMarkerModalId).modal('toggle')
@@ -207,7 +175,3 @@ $(addMarkerModalId).on('hidden.bs.modal', function () {
         lastMarker.setMap(null);
     }
 });
-
-
-
-
