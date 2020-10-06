@@ -16,6 +16,8 @@ let subCategorySelectId = '#sub-category-selection';
 
 let map;
 let infoWindow;
+let infoWindowReport;
+let infoWindowMarker;
 let lastMarker = undefined;
 let blueMarker = "/images/blue-dot.png"
 let greenMarker = "/images/green-dot.png"
@@ -73,8 +75,8 @@ function sendReport(categoryId, location) {
         url: '/report',
         type: 'POST',
         data: {report: report},
-    }).done(function (data) {
-        // TODO show success message
+    }).done(function (report) {
+        addReportMarker(JSON.parse(report));
     }).catch(function (error) {
         if (error.responseText !== undefined) {
             document.documentElement.innerHTML = error.responseText;
@@ -82,6 +84,45 @@ function sendReport(categoryId, location) {
             document.documentElement.innerHTML = error.toString();
         }
     });
+}
+
+function acceptReport() {
+    let submittedMarker = infoWindowMarker;
+    let submittedReport = infoWindowReport;
+    $.ajax({
+        url: 'report/accept/' + infoWindowReport.reportId,
+        type: 'PUT',
+    }).done(() => {
+        submittedMarker.setMap(null);
+        submittedReport.reportStatusId = ReportStatus.V;
+        addReportMarker(submittedReport);
+    }).catch((error) => {
+        if (error.responseText !== undefined) {
+            document.documentElement.innerHTML = error.responseText;
+        } else {
+            document.documentElement.innerHTML = error.toString();
+        }
+    });
+}
+
+function refuseReport() {
+    let submittedMarker = infoWindowMarker;
+    $.ajax({
+        url: 'report/refuse/' + infoWindowReport.reportId,
+        type: 'PUT',
+    }).done(() => {
+        submittedMarker.setMap(null);
+    }).catch((error) => {
+        if (error.responseText !== undefined) {
+            document.documentElement.innerHTML = error.responseText;
+        } else {
+            document.documentElement.innerHTML = error.toString();
+        }
+    });
+}
+
+function deleteReport() {
+    refuseReport();
 }
 
 /**
@@ -122,13 +163,14 @@ function addReportMarker(report) {
     });
 
     return marker;
-
 }
 
 function showInfoWindow(marker, report) {
     if (infoWindow !== undefined) {
         infoWindow.close();
     }
+    infoWindowReport = undefined;
+    infoWindowMarker = undefined;
 
     let category = CategoryRepository.getCategoryId(report.subcategoryId);
     let subcategory = CategoryRepository.getSubcategory(report.subcategoryId);
@@ -148,16 +190,16 @@ function showInfoWindow(marker, report) {
     let buttonsDiv = '';
 
     if (UserRepository.isAdmin()) {
-        buttonsDiv = '<div class="float-right"><button type="button" class="btn btn-danger">Recusar</button> ' +
-            '<button type="button" class="btn btn-success">Aceitar</button> </div>';
+        buttonsDiv = '<div class="float-right"><button type="button" class="btn btn-danger" onclick="refuseReport()">Recusar</button> ' +
+            '<button type="button" class="btn btn-success" onclick="acceptReport()">Aceitar</button> </div>';
 
         if (report.reportStatusId === ReportStatus.V) {
-            buttonsDiv = '<div class="float-right"><button type="button" class="btn btn-danger">Apagar</button> ' +
+            buttonsDiv = '<div class="float-right"><button type="button" class="btn btn-danger" onclick="deleteReport()">Apagar</button> ' +
                 ' </div>';
         }
     }
 
-    let pMessage = '';
+    let pMessage = 'Essa notificação já foi avaliada.';
     if (report.reportStatusId === ReportStatus.N) {
         pMessage = 'Notificação ainda não avaliada.';
     }
@@ -178,6 +220,8 @@ function showInfoWindow(marker, report) {
         content: infoWindowContent
     });
 
+    infoWindowReport = report;
+    infoWindowMarker = marker;
     infoWindow.open(map, marker);
 }
 
@@ -210,6 +254,12 @@ function plotMapData(mapData) {
         addReportMarker(report)
     }
 
+    if (!UserRepository.isAdmin()) {
+        for (let i = 0; i < mapData.verifiedReports.length; ++i) {
+            let report = mapData.verifiedReports[i];
+            addReportMarker(report)
+        }
+    }
     for (let i = 0; i < mapData.markers.length; ++i) {
         let marker = mapData.markers[i];
         let subcategoryId = Number(marker.subcategoryId);
@@ -256,13 +306,7 @@ $('#add-marker-btn').click(function () {
         long: lastMarker.position.lng()
     });
 
-    let position = lastMarker.position;
     lastMarker.setMap(null);
-
-    // update marker skin
-    createMarker(position.lat(),
-        position.lng(),
-        CategoryRepository.getCategoryId(selectedSubCategory));
 
     // noinspection JSUnresolvedFunction
     $(addMarkerModalId).modal('toggle')

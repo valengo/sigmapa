@@ -1,4 +1,6 @@
 const {UserRoles} = require('../../../entities/enumerations');
+const {ReportStatus} = require('../../../entities/enumerations');
+
 
 module.exports = (UserRepository, MapRepository, MarkerRepository, ReportRepository) => {
     async function Perform(userEmail, mainMapId) {
@@ -21,7 +23,10 @@ module.exports = (UserRepository, MapRepository, MarkerRepository, ReportReposit
         } else {
             reports = await ReportRepository.getAllByUserIdAndMapId(user.userId, mainMapId);
         }
-        return {user: user, map: map, markers: markers, reports: reports}
+
+        let verifiedReports = await ReportRepository.getAllByMapIdAndStatusId(mainMapId, ReportStatus.VERIFIED);
+
+        return {user: user, map: map, markers: markers, reports: reports, verifiedReports: verifiedReports}
     }
 
     return {

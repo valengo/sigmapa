@@ -23,9 +23,6 @@ const app = express();
 appDependencies.DatabaseService.makeMigration()
     .then(() => {
             console.log('Database was initialized!');
-            appDependencies.MapRepository.getOneById(1).then((map) => {
-                console.log(map);
-            });
             configureApp();
         }
     ).catch(function (error) {

@@ -6,6 +6,9 @@ const reportRouter = (dependencies) => {
     let controller = ReportController(dependencies);
 
     router.route('/').post(controller.AddReport);
+    router.route('/refuse/:id').put(controller.Refuse);
+    router.route('/accept/:id').put(controller.Accept);
+
 
     return router;
 };
