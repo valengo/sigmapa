@@ -29,10 +29,12 @@ Você pode acessar a lista de variáveis e instruções de como obtê-las [aqui]
 ### 3. Configurar o Firebase no front-end
 Você precisa seguir as instruções [aqui](https://firebase.google.com/) e trocar as informações [nesse arquivo](https://github.com/valengo/sigmapa/blob/master/public/javascripts/firebase.js).
 
-### 4. Rodar o projeto localmente ou instalar em alguma nuvem
-#### 4.1 Rodando localmente
+### 4. Obter uma key para acessar a api do Google Maps
+
+### 5. Rodar o projeto localmente ou instalar em alguma nuvem
+#### 5.1 Rodando localmente
   ```
   $ npm start
   ```
-#### 4.2 Rodando na nuvem
+#### 5.2 Rodando na nuvem
 Você pode instalar esse projeto no [Heroku](https://www.heroku.com/), por exemplo. 
