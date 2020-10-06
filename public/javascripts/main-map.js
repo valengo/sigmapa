@@ -15,6 +15,7 @@ let categorySelectId = '#category-selection';
 let subCategorySelectId = '#sub-category-selection';
 
 let map;
+let infoWindow;
 let lastMarker = undefined;
 let blueMarker = "/images/blue-dot.png"
 let greenMarker = "/images/green-dot.png"
@@ -49,11 +50,13 @@ async function retrieveData() {
         CategoryRepository.update(categoryData.categories, categoryData.subcategories);
         configureCategorySelectors();
 
-        const mapData = await $.ajax({
+        let initialData = await $.ajax({
             url: '/main-map/data',
             type: 'GET',
         });
-        plotMapData(JSON.parse(mapData));
+        let parsedData = JSON.parse(initialData);
+        UserRepository.update(parsedData.user);
+        plotMapData(parsedData);
     } catch (error) {
         if (error.responseText !== undefined) {
             document.documentElement.innerHTML = error.responseText;
@@ -86,44 +89,24 @@ function sendReport(categoryId, location) {
  */
 
 function addReportMarker(report) {
+    if (report.reportStatusId === ReportStatus.R) {
+        return;
+    }
+
     let position = new google.maps.LatLng(report.location.x, report.location.y);
     let category = CategoryRepository.getCategoryId(report.subcategoryId);
-    let subcategory = CategoryRepository.getSubcategory(report.subcategoryId);
 
     let iconUrl = redMarker;
-    let emojiHex = '&#128106'
     switch (category) {
         case MarkerColors.RED:
             iconUrl = redMarker;
-            emojiHex = '&#128106';
             break;
         case MarkerColors.BLUE:
             iconUrl = blueMarker;
-            emojiHex = '&#127974'
             break;
         case MarkerColors.GREEN:
             iconUrl = greenMarker;
-            emojiHex = '&#127795'
     }
-
-    let buttonsDiv = '<div class="float-right"><button type="button" class="btn btn-danger">Recusar</button> ' +
-        '<button type="button" class="btn btn-success">Aceitar</button> </div>';
-
-    let infoWindowContent =
-        '<div class="container"> ' +
-        '   <div class="row">' +
-        '       <div class="col-12">' +
-        `           <h3 class="mt-3 mb-3">${emojiHex} ${subcategory.description}</h3>` +
-        '           <p>Notificação ainda não avaliada.</p>' +
-        `               ${buttonsDiv}` +
-        '               ' +
-        '       </div>' +
-        '   </div>' +
-        '</div>';
-
-    let infoWindow = new google.maps.InfoWindow({
-        content: infoWindowContent
-    });
 
     let marker = new google.maps.Marker({
         position: position,
@@ -135,11 +118,67 @@ function addReportMarker(report) {
     });
 
     marker.addListener('click', () => {
-        infoWindow.open(map, marker);
+        showInfoWindow(marker, report);
     });
 
     return marker;
 
+}
+
+function showInfoWindow(marker, report) {
+    if (infoWindow !== undefined) {
+        infoWindow.close();
+    }
+
+    let category = CategoryRepository.getCategoryId(report.subcategoryId);
+    let subcategory = CategoryRepository.getSubcategory(report.subcategoryId);
+
+    let emojiHex = '&#128106'
+    switch (category) {
+        case MarkerColors.RED:
+            emojiHex = '&#128106';
+            break;
+        case MarkerColors.BLUE:
+            emojiHex = '&#127974'
+            break;
+        case MarkerColors.GREEN:
+            emojiHex = '&#127795'
+    }
+
+    let buttonsDiv = '';
+
+    if (UserRepository.isAdmin()) {
+        buttonsDiv = '<div class="float-right"><button type="button" class="btn btn-danger">Recusar</button> ' +
+            '<button type="button" class="btn btn-success">Aceitar</button> </div>';
+
+        if (report.reportStatusId === ReportStatus.V) {
+            buttonsDiv = '<div class="float-right"><button type="button" class="btn btn-danger">Apagar</button> ' +
+                ' </div>';
+        }
+    }
+
+    let pMessage = '';
+    if (report.reportStatusId === ReportStatus.N) {
+        pMessage = 'Notificação ainda não avaliada.';
+    }
+
+    let infoWindowContent =
+        '<div class="container"> ' +
+        '   <div class="row">' +
+        '       <div class="col-12">' +
+        `           <h3 class="mt-3 mb-3">${emojiHex} ${subcategory.description}</h3>` +
+        `           <p>${pMessage}</p>` +
+        `               ${buttonsDiv}` +
+        '               ' +
+        '       </div>' +
+        '   </div>' +
+        '</div>';
+
+    infoWindow = new google.maps.InfoWindow({
+        content: infoWindowContent
+    });
+
+    infoWindow.open(map, marker);
 }
 
 function createMarker(lat, long, markerColor) {

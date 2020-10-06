@@ -26,6 +26,9 @@ module.exports = function (dependencies, defaultValues) {
         let {email} = req.session;
 
         GetMapDataUseCase.Perform(email, MainMapId).then(data => {
+            data.user.uid = undefined;
+            data.user.userId = undefined;
+            data.user.email = undefined;
             res.send(JSON.stringify(data));
         }, (error) => {
             next(error);
