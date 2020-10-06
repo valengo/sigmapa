@@ -89,6 +89,10 @@ function configureApp() {
         res.redirect('/');
     });
 
+    app.get('/privacy-policy', function (req, res, next) {
+        res.render('privacy-policy');
+    });
+
     // catch 404 and forward to error handler
     app.use(function (req, res, next) {
         next(createError(404));
