@@ -58,7 +58,7 @@ async function retrieveData() {
         if (error.responseText !== undefined) {
             document.documentElement.innerHTML = error.responseText;
         } else {
-            console.log('ERRO -> ' + error);
+            document.documentElement.innerHTML = error.toString();
         }
     }
 }
@@ -73,7 +73,11 @@ function sendReport(categoryId, location) {
     }).done(function (data) {
         // TODO show success message
     }).catch(function (error) {
-        document.documentElement.innerHTML = error.responseText;
+        if (error.responseText !== undefined) {
+            document.documentElement.innerHTML = error.responseText;
+        } else {
+            document.documentElement.innerHTML = error.toString();
+        }
     });
 }
 
@@ -125,7 +129,8 @@ function addReportMarker(report) {
         map: map,
         icon: {
             url: iconUrl
-        }
+        },
+        report: report
     });
 
     marker.addListener('click', () => {
