@@ -4,6 +4,12 @@ const MarkerColors = {
     RED: 3
 }
 
+const ReportStatus = {
+    N: 'N',
+    V: 'V',
+    R: 'R'
+}
+
 let addMarkerModalId = '#add-marker-modal';
 let categorySelectId = '#category-selection';
 let subCategorySelectId = '#sub-category-selection';
@@ -75,7 +81,62 @@ function sendReport(categoryId, location) {
  * Other functions
  */
 
-function addMarker(lat, long, markerColor) {
+function addReportMarker(report) {
+    let position = new google.maps.LatLng(report.location.x, report.location.y);
+    let category = CategoryRepository.getCategoryId(report.subcategoryId);
+    let subcategory = CategoryRepository.getSubcategory(report.subcategoryId);
+
+    let iconUrl = redMarker;
+    let emojiHex = '&#128106'
+    switch (category) {
+        case MarkerColors.RED:
+            iconUrl = redMarker;
+            emojiHex = '&#128106';
+            break;
+        case MarkerColors.BLUE:
+            iconUrl = blueMarker;
+            emojiHex = '&#127974'
+            break;
+        case MarkerColors.GREEN:
+            iconUrl = greenMarker;
+            emojiHex = '&#127795'
+    }
+
+    let buttonsDiv = '<div class="float-right"><button type="button" class="btn btn-danger">Remover</button> ' +
+        '<button type="button" class="btn btn-success">Aceitar</button> </div>';
+
+    let infoWindowContent =
+        '<div class="container"> ' +
+        '   <div class="row">' +
+        '       <div class="col-12">' +
+        `           <h3 class="mt-3 mb-3">${emojiHex} ${subcategory.description}</h3>` +
+        `               ${buttonsDiv}` +
+        '               ' +
+        '       </div>' +
+        '   </div>' +
+        '</div>';
+
+    let infoWindow = new google.maps.InfoWindow({
+        content: infoWindowContent
+    });
+
+    let marker = new google.maps.Marker({
+        position: position,
+        map: map,
+        icon: {
+            url: iconUrl
+        }
+    });
+
+    marker.addListener('click', () => {
+        infoWindow.open(map, marker);
+    });
+
+    return marker;
+
+}
+
+function createMarker(lat, long, markerColor) {
     let iconUrl = redMarker;
     switch (parseInt(markerColor)) {
         case MarkerColors.RED:
@@ -101,14 +162,13 @@ function addMarker(lat, long, markerColor) {
 function plotMapData(mapData) {
     for (let i = 0; i < mapData.reports.length; ++i) {
         let report = mapData.reports[i];
-        let subcategoryId = Number(report.subcategoryId);
-        addMarker(report.location.x, report.location.y, CategoryRepository.getCategoryId(subcategoryId));
+        addReportMarker(report)
     }
 
     for (let i = 0; i < mapData.markers.length; ++i) {
         let marker = mapData.markers[i];
         let subcategoryId = Number(marker.subcategoryId);
-        addMarker(marker.location.x, marker.location.y, CategoryRepository.getCategoryId(subcategoryId));
+        createMarker(marker.location.x, marker.location.y, CategoryRepository.getCategoryId(subcategoryId));
     }
 }
 
@@ -126,7 +186,7 @@ function configureCategorySelectors() {
 
 function handleMapClick(e) {
     let selectedCategory = $(categorySelectId).children("option:selected").val();
-    lastMarker = addMarker(e.latLng.lat(), e.latLng.lng(), selectedCategory);
+    lastMarker = createMarker(e.latLng.lat(), e.latLng.lng(), selectedCategory);
     // noinspection JSUnresolvedFunction
     $(addMarkerModalId).modal('toggle')
 }
@@ -155,7 +215,7 @@ $('#add-marker-btn').click(function () {
     lastMarker.setMap(null);
 
     // update marker skin
-    addMarker(position.lat(),
+    createMarker(position.lat(),
         position.lng(),
         CategoryRepository.getCategoryId(selectedSubCategory));
 

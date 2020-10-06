@@ -19,6 +19,9 @@ const CategoryRepository = (() => {
         },
         getAllCategories: () => {
             return _categories;
+        },
+        getSubcategory: (subcategoryId) => {
+            return _subcategories.find(c => c.subcategoryId === subcategoryId);
         }
     };
 })();
