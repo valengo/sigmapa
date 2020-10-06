@@ -106,7 +106,7 @@ function addReportMarker(report) {
             emojiHex = '&#127795'
     }
 
-    let buttonsDiv = '<div class="float-right"><button type="button" class="btn btn-danger">Remover</button> ' +
+    let buttonsDiv = '<div class="float-right"><button type="button" class="btn btn-danger">Recusar</button> ' +
         '<button type="button" class="btn btn-success">Aceitar</button> </div>';
 
     let infoWindowContent =
@@ -114,6 +114,7 @@ function addReportMarker(report) {
         '   <div class="row">' +
         '       <div class="col-12">' +
         `           <h3 class="mt-3 mb-3">${emojiHex} ${subcategory.description}</h3>` +
+        '           <p>Notificação ainda não avaliada.</p>' +
         `               ${buttonsDiv}` +
         '               ' +
         '       </div>' +
