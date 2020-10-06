@@ -16,9 +16,9 @@ let subCategorySelectId = '#sub-category-selection';
 
 let map;
 let lastMarker = undefined;
-let blueMarker = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-let greenMarker = "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-let redMarker = "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+let blueMarker = "/images/blue-dot.png"
+let greenMarker = "/images/green-dot.png"
+let redMarker = "/images/red-dot.png"
 
 
 /**
