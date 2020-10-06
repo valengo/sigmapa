@@ -4,11 +4,12 @@ block content
             ul.nav.flex-column.mb-5
                 -
                     const items = {
-                        '/'                 : ['home', 'Início'],
-                        '/main-map'         : ['map', 'Mapa principal'],
-                        '/all-courses'      : ['grid', 'Todos os cursos'],
-                        '/my-maps'          : ['layers', 'Meus mapas'],
-                        '/notifications'    : ['bell', 'Notificações']};
+                        '/'                 : ['home', 'Mapa principal'],
+                        // '/main-map'         : ['map', 'Mapa principal'],
+                        // '/all-courses'      : ['grid', 'Todos os cursos'],
+                        // '/my-maps'          : ['layers', 'Meus mapas'],
+                        // '/notifications'    : ['bell', 'Notificações']
+                        };
 
                 each val, key in items
                     li.nav-item
@@ -17,12 +18,20 @@ block content
                             |   #{val[1]}
                             if name === val[1]
                                 span.sr-only (current)
+                li.nav-item
+                    a.nav-link(href="http://ifce.edu.br/")
+                        span(data-feather="globe")
+                        |               IFCE
+                li.nav-item
+                    a.nav-link(href="http://ifce.edu.br/fortaleza/profept")
+                        span(data-feather="globe")
+                        |               ProfEPT
+                li.nav-item
+                    a.nav-link(href="http://sanusb.org/")
+                        span(data-feather="globe")
+                        |               Grupo SanUSB
 
             ul.nav.flex-column.mb-2.mt-5
-                li.nav-item
-                    a.nav-link(href="#")
-                        span(data-feather="settings")
-                        |               Configurações
                 li.nav-item
                     a.nav-link(href="/logout")
                         span(data-feather="log-out")
