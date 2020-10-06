@@ -10,6 +10,19 @@ module.exports = class ReportRepository {
 
     async getAllByUserIdAndMapId(userId, mapId) {
         let rows = await this.DBSource.getAllByUserIdAndMapId(userId, mapId);
+        return this._mapReports(rows);
+    }
+
+    async getAllByMapId(mapId) {
+        let rows = await this.DBSource.getAllByMapId(mapId);
+        return this._mapReports(rows);
+    }
+
+    async add(report) {
+        await this.DBSource.add(report);
+    }
+
+    _mapReports(rows) {
         let reports = [];
 
         for (let i = 0; i < rows.length; ++i) {
@@ -19,10 +32,4 @@ module.exports = class ReportRepository {
         }
         return reports;
     }
-
-    async add(report) {
-        await this.DBSource.add(report);
-    }
-
-
 }

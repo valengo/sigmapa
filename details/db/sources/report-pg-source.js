@@ -65,4 +65,14 @@ module.exports = class ReportPGSource extends DBSource {
             throw new Error('Failed while getting all reports by userId and mapId -> ' + error.message);
         }
     }
+
+    async getAllByMapId(mapId) {
+        let text = 'SELECT * FROM reports WHERE map_id = $1';
+        try {
+            let result = await this.db.query(text, [mapId]);
+            return result.rows;
+        } catch (error) {
+            throw new Error('Failed while getting all reports by mapId -> ' + error.message);
+        }
+    }
 }

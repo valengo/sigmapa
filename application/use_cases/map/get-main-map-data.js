@@ -1,3 +1,5 @@
+const {UserRoles} = require('../../../entities/enumerations');
+
 module.exports = (UserRepository, MapRepository, MarkerRepository, ReportRepository) => {
     async function Perform(userEmail, mainMapId) {
 
@@ -12,9 +14,14 @@ module.exports = (UserRepository, MapRepository, MarkerRepository, ReportReposit
         }
 
         let markers = await MarkerRepository.getAllByMapId(mainMapId);
-        let reports = await ReportRepository.getAllByUserIdAndMapId(user.userId, mainMapId);
 
-        return {map: map, markers: markers, reports: reports}
+        let reports = []
+        if (user.roleId === UserRoles.ADMIN) {
+            reports = await ReportRepository.getAllByMapId(mainMapId);
+        } else {
+            reports = await ReportRepository.getAllByUserIdAndMapId(user.userId, mainMapId);
+        }
+        return {user: user, map: map, markers: markers, reports: reports}
     }
 
     return {
