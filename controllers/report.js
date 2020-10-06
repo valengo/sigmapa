@@ -26,6 +26,7 @@ module.exports = function (dependencies) {
         }
 
         AddNewReportUseCase.Perform(report, email).then(() => {
+            res.sendStatus(200);
         }, error => {
             next(error);
         });
