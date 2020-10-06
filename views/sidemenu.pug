@@ -4,20 +4,21 @@ block content
             ul.nav.flex-column.mb-5
                 -
                     const items = {
-                        '/'                 : ['home', 'Mapa principal'],
+                        '/': ['home', 'Mapa principal'],
                         // '/main-map'         : ['map', 'Mapa principal'],
                         // '/all-courses'      : ['grid', 'Todos os cursos'],
                         // '/my-maps'          : ['layers', 'Meus mapas'],
                         // '/notifications'    : ['bell', 'Notificações']
-                        };
+                    };
 
                 each val, key in items
                     li.nav-item
-                        a.nav-link(href=key, class= name === val[1]  ? 'active' : '')
+                        a.nav-link(href=key, class= name === val[1] ? 'active' : '')
                             span(data-feather=val[0])
                             |   #{val[1]}
                             if name === val[1]
                                 span.sr-only (current)
+
                 li.nav-item
                     a.nav-link(href="http://ifce.edu.br/")
                         span(data-feather="globe")
@@ -32,6 +33,10 @@ block content
                         |               Grupo SanUSB
 
             ul.nav.flex-column.mb-2.mt-5
+                li.nav-item
+                    a.nav-link(href="/privacy-policy")
+                        span(data-feather="lock")
+                        |               Política de Privacidade
                 li.nav-item
                     a.nav-link(href="/logout")
                         span(data-feather="log-out")
