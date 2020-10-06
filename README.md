@@ -17,7 +17,8 @@ alterações nos [SQL de migração](https://github.com/valengo/sigmapa/tree/mas
 de usuário foi utilizado o [Firebase](https://firebase.google.com/). Considerando o front-end, o framework [Bootstrap](https://getbootstrap.com/) foi aplicado para facilitar a construção das telas e o 
 [Google Maps Platform](https://developers.google.com/maps/documentation) para exibir os mapas.
 
-## Como ter o seu próprio mapa? 
+## Como ter o seu próprio mapa?
+Essas recomendações consideram alguém que já tem um bom conhecimento sobre desenvolvimento de aplicações web com Node.js
 ### 1. Clonar esse repositório
   ```
   $ git clone https://github.com/valengo/sigmapa.git
